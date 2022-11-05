@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 100vw;
+            height: 100vh;
+            max-width: 800px;
+            margin: auto;
+            padding: 5px 20px;
+            background-color: #dce5e9;
+            font-size: .8rem;
+            color: #000000a8;
+
+        }
+
+        #values {
+            height: 40px;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        #send {
+            position: absolute;
+            right: 5px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        #map {
+            width: 100%;
+            height: calc(100% - 40px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="values">
+            <span style="color: #000">Lat: <span style="color: #000000a8" id="lat">...</span></span> | <span
+                style="color: #000">Long: <span style="color: #000000a8" id="long">...</span></span>
+            <div id="send">Send</div>
+        </div>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        function getLocation() {
+
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition((position) => {
+                    const { latitude, longitude } = position.coords
+                    lat.textContent = latitude
+                    long.textContent = longitude
+
+                    console.log({ latitude, longitude })
+
+                    map.innerHTML = `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.8892770132607!2d8.865366314429387!3d9.943169792890112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10537292f66809ef%3A0x48e1a73caed9315a!2sSt.Murumba%20Catholic%20Church!5e0!3m2!1sen!2sng!4v1667681195520!5m2!1sen!2sng" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`
+                });
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
+        }
+
+        getLocation()
+
+    </script>
+</body>
+
+</html>
